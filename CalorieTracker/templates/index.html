@@ -26,11 +26,12 @@
                         <label class="col-md-2">
                             <b>Select Food To Add </b>
                         </label>
-                        <select class="col-md-6 form-control" name="food_consumed" id="food_consumed">
+                        <!-- <select class="col-md-6 form-control" name="food_consumed" id="food_consumed">
                             {%for food in foods%}
                             <option value="{{food.food_name}}">{{food.food_name}}</option>
                             {%endfor%}
-                        </select>
+                        </select> -->
+                        <input type="text" name="food_consumed">
                         <button class="btn btn-success" type="submit">Add</button>
                     </div>
                 </form>
@@ -68,14 +69,13 @@
                         <th style="text-align:center">Calories(Kcal)</th>
                         <th style="text-align:center">Remove Item</th>
                     </tr>
-                    {% for con in cons %}
+                    {% for i in json_data %}
                     <tr>
-                        <td style="text-align:center">{{con.food_consumed.food_name}}</td>
-                        <td style="text-align:center">{{con.food_consumed.carbs}}</td>
-                        <td style="text-align:center">{{con.food_consumed.protein}}</td>
-                        <td style="text-align:center">{{con.food_consumed.fats}}</td>
-                        <td style="text-align:center">{{con.food_consumed.calories}}</td>
-                        <td style="text-align:center"><a class="btn btn-danger" href="{% url 'delete' con.id %}">X</a>
+                        <td style="text-align:center">{{i.name}}</td>
+                        <td style="text-align:center">{{i.carbohydrates_total_g}}</td>
+                        <td style="text-align:center">{{i.protein_g}}</td>
+                        <td style="text-align:center">{{i.fat_total_g}}</td>
+                        <td style="text-align:center">{{i.calories}}</td>
                         </td>
                     </tr>
                     {%endfor%}
