@@ -69,13 +69,14 @@
                         <th style="text-align:center">Calories(Kcal)</th>
                         <th style="text-align:center">Remove Item</th>
                     </tr>
-                    {% for i in json_data %}
+                    {% for i in cons %}
                     <tr>
-                        <td style="text-align:center">{{i.name}}</td>
-                        <td style="text-align:center">{{i.carbohydrates_total_g}}</td>
-                        <td style="text-align:center">{{i.protein_g}}</td>
-                        <td style="text-align:center">{{i.fat_total_g}}</td>
+                        <td style="text-align:center">{{i.food_name}}</td>
+                        <td style="text-align:center">{{i.carbs}}</td>
+                        <td style="text-align:center">{{i.protein}}</td>
+                        <td style="text-align:center">{{i.fats}}</td>
                         <td style="text-align:center">{{i.calories}}</td>
+                        <td style="text-align:center"><a class="btn btn-danger" href="{% url 'delete' i.food_name %}">X</a>
                         </td>
                     </tr>
                     {%endfor%}

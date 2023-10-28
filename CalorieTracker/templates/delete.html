@@ -26,7 +26,7 @@
             {%for i in cons %}
             <form method="POST">
                 {%csrf_token%}
-                <h2 style="text-align:center">Are you sure you want to delete {{i.food_consumed.food_name}}? <br> <button type="submit"
+                <h2 style="text-align:center">Are you sure you want to delete {{consumed.food_name}}? <br> <button type="submit"
                         class="btn btn-danger">Delete</button></h2>
             </form>
             {%endfor%}
