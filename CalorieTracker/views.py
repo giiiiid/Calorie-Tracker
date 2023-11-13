@@ -25,8 +25,8 @@ def home(request):
                 calories=json_data[0]['calories']
             )
         except IndexError:
-            return HttpResponse('Food could not be found. Please be specific with your food')
-            
+            return HttpResponse('Food could not be found. Please be specific with it')
+
         cons = Food.objects.get(food_name=name_of_food)
         return redirect('home')
 
