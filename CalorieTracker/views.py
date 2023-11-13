@@ -6,7 +6,7 @@ from .models import Food, Consume
 
 # Create your views here.
 
-# getting data from API Ninja and storing it in a database
+# getting data from API Ninja and saving it in a database
 def home(request):
     if request.method == "POST":
         name_of_food = request.POST['food_consumed']
@@ -18,11 +18,15 @@ def home(request):
         except ConnectionError:
             return HttpResponse('Connection error')
         
-        create_food_data = Food.objects.create(
-            food_name=name_of_food,  carbs=json_data[0]['carbohydrates_total_g'],
-            protein=json_data[0]['protein_g'],  fats=json_data[0]['fat_total_g'],
-            calories=json_data[0]['calories']
-        )
+        try:
+            create_food_data = Food.objects.create(
+                food_name=name_of_food,  carbs=json_data[0]['carbohydrates_total_g'],
+                protein=json_data[0]['protein_g'],  fats=json_data[0]['fat_total_g'],
+                calories=json_data[0]['calories']
+            )
+        except IndexError:
+            return HttpResponse('Food could not be found. Please be specific with your food')
+            
         cons = Food.objects.get(food_name=name_of_food)
         return redirect('home')
 
