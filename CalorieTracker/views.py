@@ -15,17 +15,14 @@ def home(request):
             api_url = 'https://api.api-ninjas.com/v1/nutrition?query={}'.format(name_of_food)
             response = requests.get(api_url, headers={'X-Api-Key': 'qJXdAxQG9UWoM2g1bHQ/Cw==ODvpMi16dBa2hv7I'})
             json_data = response.json()
-        except ConnectionError:
-            return HttpResponse('Connection error')
-        
-        try:
+
             create_food_data = Food.objects.create(
                 food_name=name_of_food,  carbs=json_data[0]['carbohydrates_total_g'],
                 protein=json_data[0]['protein_g'],  fats=json_data[0]['fat_total_g'],
                 calories=json_data[0]['calories']
             )
-        except IndexError:
-            return HttpResponse('Food could not be found. Please be specific with it')
+        except IndexError or ConnectionError:
+            return errors(request)
 
         cons = Food.objects.get(food_name=name_of_food)
         return redirect('home')
@@ -47,3 +44,7 @@ def delete(request, name):
 
     context = {'consumed':consumed}
     return render(request, 'delete.html', context)              
+
+
+def errors(request):
+    return render(request, 'errors.html')
